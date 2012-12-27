@@ -385,7 +385,7 @@ class FormValidator
                 break;
             case 'callback' :
                 if (is_callable($rule->criteria)) {
-                    $return = call_user_func($rule->criteria, $value, $this);
+                    $return = call_user_func($rule->criteria, $this);
                     if (!$return) {
                         $this->_errors[$rule->fieldname] = $rule->message;
                         return;
