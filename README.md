@@ -27,4 +27,3 @@ Provides methods for validating form inputs according to the following criteria:
 * Input must be a properly formmatted credit card number (Visa, Mastercard, 
   American Express, Discover)
 * Input must validate according to a custom callback function
-
