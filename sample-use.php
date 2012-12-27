@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $validator->addEntries($_POST);
     $validator->validate();
     
-    // Retrieve an associative array of "sanitized" form inputs (stripped HTML tags)
+    // Retrieve an associative array of "sanitized" form inputs (HTML tags stripped, etc.)
     $entries = $validator->getEntries();
     
     // Replace the default field values with what the user submitted
