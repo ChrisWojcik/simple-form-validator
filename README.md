@@ -1,11 +1,16 @@
 # Simple Form Validator
 
-This simplified form validator includes two class files (the main FormValidator 
-and a second class to store user-defined rules) to provide basic server-side 
-validation of form inputs. Though nowhere near as robust as other form validators 
-(e.g. PEAR HTML_QuickForm2), this may be sufficient for very simple projects.
+This simplified form validator provides basic server-side validation of form inputs. 
+Though nowhere near as robust as other form validators (e.g. PEAR's HTML_QuickForm2), 
+this may be sufficient for very simple projects.
 
-This code was originally created as part of a class project.
+The two class files are formvalidator.php and validationrule.php. The formvalidator
+file contains the FormValidator class which provides an object-oriented approach 
+to simple form validation. The validationrule file is used internally by the 
+FormValidator to store user-defined validation rules as objects.
+
+This code was originally created as part of a class project and was a learning
+experience in working with OOP in PHP.
 
 
 ## Features
@@ -64,6 +69,58 @@ Returns true if any field failed to validate, or false if all fields passed.
 ### getErrors()
 Retrieve the error messages in the form: fieldname => msg.
 
+### sanitize(text)
+Cleans up text to remove html tags, and deal with magic quotes. This method is 
+public and may be used in a stand-alone fashion, but it is also called automatically 
+on all inputs passed in by the addEntries method.
 
 
+## FormValidator Validation Methods
 
+Each ruletype has a corresponding method in the FormValidator class. When the 
+validate() method is used, the FormValidator loops through the user-supplied rules 
+and tests the value of the field using the corresponding method.
+
+These methods are also public and can be used in a stand-alone fashion. Each of 
+these validation methods returns a boolean value.
+
+### longerThan(value, minlength)
+Tests if a value (string) is longer than a minimum length (integer). 
+
+### shorterThan(value, maxlength)
+Tests if a value (string) is shorter than a maximum length (integer).
+
+### asNumber(value)
+Tests if a given value is numeric using a regular expression (either an integer or float).
+
+### numberBetween(value, range)
+Tests if a given value is numeric and is between the two values which are passed as 
+an array to the second parameter.
+
+### asZip(value)
+Tests if the given input is a properly formatted US zip code using a regular 
+expression. To be valid, the zip code must have 5 digits, which can be followed 
+by an optional dash and four more digits.
+
+### asEmail(value)
+Tests if a given input is a properly formatted email address. This method utilizes 
+PHP's native FILTER_VALIDATE_EMAIL.
+
+### asPhoneNumber(value)
+Validates the input as a US phone number. The number must include a 3 digit area 
+code (optionally enclosed in parentheses), followed by an optional dash, 3 more 
+digits, another optional dash, and finally four digits. Each of the three sets of 
+digits may be optionally separated by spaces as well. TODO: add support for country
+codes and extensions.
+
+### asCreditCard(value)
+Validates the input as a properly formatted credit card number. Supported card 
+types: Visa, Mastercard, American Express, Discover. This method will verify that 
+the card number has the proper number of digits, and that it passes against the 
+mod10 algorithm. Spaces or dashes separating the digits are allowed.
+
+
+## Sample Use
+
+Please view the sample-use.php file to see the Form Validator in action with a simple
+use case which demonstrates several of the above methods.
