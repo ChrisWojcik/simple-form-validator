@@ -123,4 +123,4 @@ mod10 algorithm. Spaces or dashes separating the digits are allowed.
 ## Sample Use
 
 Please view the sample-use.php file to see the Form Validator in action with a simple
-use case which demonstrates several of the above methods.
+use case which demonstrates several of the above methods./////
